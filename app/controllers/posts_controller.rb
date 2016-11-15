@@ -1,3 +1,4 @@
+require 'rails_autolink'
 class PostsController < ApplicationController
 	before_action :authenticate_user!, except: [:index, :show]
 	def index
@@ -10,10 +11,10 @@ class PostsController < ApplicationController
 
 	def create
 		@post = Post.new(post_params)
-		if @post.save
+		if @post.body == ""
 			redirect_to @post
 		else
-			render 'new'
+			@post.body = auto_link(@post.body)
 		end            		
 	end
 
