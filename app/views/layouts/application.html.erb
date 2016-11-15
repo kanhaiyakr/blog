@@ -46,10 +46,19 @@
 				<%= link_to "Back to All Posts", root_path %>
 			<% end %>
 
-			<% if user_signed_in? %>
+			<% if current_user && current_user.admin_id == 1 %>
 				<div class="buttons">
 					<button class="button"><%= link_to "New Post", new_post_path %></button>
-					<button class="button">Log Out</button>
+					<button class="button"><%=link_to "Logout", destroy_user_session_path, method: :delete %></button>
+				</div>
+			<% elsif user_signed_in? %>
+				<div class="buttons">
+					<button class="button"><%=link_to "Logout", destroy_user_session_path, method: :delete %></button>
+				</div>
+			<% else %>
+				<div class="buttons">
+				<button class="button"><%=link_to "Login", new_user_session_path %></button>
+				<button class="button"><%=link_to "Register", new_user_registration_path %></button>
 				</div>
 			<% end %>
 		</div>
