@@ -11,10 +11,10 @@ class PostsController < ApplicationController
 
 	def create
 		@post = Post.new(post_params)
-		if @post.body == ""
+		if @post.save
 			redirect_to @post
 		else
-			@post.body = auto_link(@post.body)
+			render 'new'
 		end            		
 	end
 
